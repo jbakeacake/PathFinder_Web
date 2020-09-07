@@ -3,8 +3,8 @@ pipeline {
   stages {
     stage('Fetch Dependencies') {
       steps {
-        sh '''ls
-docker -v'''
+        sh '''cd ./client-app
+npm install'''
       }
     }
 
