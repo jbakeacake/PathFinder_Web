@@ -3,7 +3,8 @@ pipeline {
   stages {
     stage('Fetch Dependencies') {
       steps {
-        sh 'ls'
+        sh '''ls
+docker images'''
       }
     }
 
