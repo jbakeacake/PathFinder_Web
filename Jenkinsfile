@@ -4,7 +4,7 @@ pipeline {
     stage('Fetch Dependencies') {
       steps {
         sh '''ls
-docker images'''
+docker -v'''
       }
     }
 
