@@ -1,15 +1,9 @@
 pipeline {
-  agent {
-    docker {
-      image 'node:10.14.0-alpine'
-    }
-
-  }
+  agent any
   stages {
     stage('Fetch Dependencies') {
       steps {
-        sh '''npm install -g @angular/cli
-ls'''
+        sh 'ls'
       }
     }
 
