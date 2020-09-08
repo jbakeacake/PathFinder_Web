@@ -23,8 +23,7 @@ npm install'''
 
     stage('Build / Compose') {
       steps {
-        sh '''printenv
-/usr/local/bin/docker-compose build'''
+        sh '/usr/local/bin/docker-compose build'
       }
     }
 
@@ -40,8 +39,5 @@ npm install'''
       }
     }
 
-  }
-  environment {
-    PATH = '"$PATH:/usr/local/bin"'
   }
 }
