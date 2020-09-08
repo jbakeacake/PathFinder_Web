@@ -23,7 +23,7 @@ npm install'''
 
     stage('Build / Compose') {
       steps {
-        sh '''ls
+        sh '''docker-compose --version
 docker-compose build'''
       }
     }
