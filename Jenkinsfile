@@ -5,6 +5,8 @@ pipeline {
       steps {
         nodejs('Node') {
           echo 'Finished Configuring NodeJS'
+          sh '''echo "Node Version:"
+node -v'''
         }
 
         sh '''cd ./client-app/
