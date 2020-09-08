@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Fetch Dependencies') {
       steps {
-        nodejs('NodeJS-Default') {
+        nodejs('Node') {
           echo 'Finished Configuring NodeJS'
         }
 
