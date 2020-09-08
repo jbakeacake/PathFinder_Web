@@ -3,6 +3,10 @@ pipeline {
   stages {
     stage('Fetch Dependencies') {
       steps {
+        nodejs('NodeJS-Default') {
+          echo 'Finished Configuring NodeJS'
+        }
+
         sh '''cd ./client-app/
 npm install'''
       }
