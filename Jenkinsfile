@@ -23,7 +23,8 @@ npm install'''
 
     stage('Build / Compose') {
       steps {
-        sh '/usr/local/bin/docker-compose build'
+        sh '''printenv
+/usr/local/bin/docker-compose build'''
       }
     }
 
