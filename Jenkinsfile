@@ -41,4 +41,7 @@ docker-compose build'''
     }
 
   }
+  environment {
+    PATH = '"$PATH:/usr/local/bin"'
+  }
 }
