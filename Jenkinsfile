@@ -5,12 +5,7 @@ pipeline {
       steps {
         nodejs('Node') {
           echo 'Finished Configuring NodeJS'
-          sh '''echo "Node Version:"
-node -v
-npm install npm -g
-echo "npm Version:"
-npm -v
-npm install'''
+          sh 'npm install'
         }
 
       }
