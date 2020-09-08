@@ -23,14 +23,13 @@ npm install'''
 
     stage('Build / Compose') {
       steps {
-        sh '''docker-compose --version
-docker-compose build'''
+        sh '/usr/local/bin/docker-compose build'
       }
     }
 
     stage('Push') {
       steps {
-        sh 'docker-compose push'
+        sh '/usr/local/bin/docker-compose push'
       }
     }
 
