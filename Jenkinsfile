@@ -1,5 +1,11 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      args '-d -p 3000:3000 '
+      image 'node:14-alpine'
+    }
+
+  }
   stages {
     stage('Fetch Dependencies') {
       steps {
