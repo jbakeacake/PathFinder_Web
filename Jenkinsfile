@@ -9,9 +9,7 @@ pipeline {
   stages {
     stage('Fetch Dependencies') {
       steps {
-        sh '''cd ./client-app
-ls
-npm install'''
+        sh 'echo Fetch Deps'
       }
     }
 
@@ -23,7 +21,8 @@ npm install'''
 
     stage('Build / Compose') {
       steps {
-        sh '/usr/local/bin/docker-compose build'
+        sh '''which docker
+which docker-compose'''
       }
     }
 
