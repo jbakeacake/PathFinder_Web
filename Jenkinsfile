@@ -23,10 +23,11 @@ pipeline {
         script {
           withCredentials([usernamePassword(credentialsId: 'dockerhub_id', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')])
           {
-            echo ${env.DOCKER_USER}
-            echo ${env.DOCKER_PASS}
+            echo env.DOCKER_USER
+            echo env.DOCKER_PASS
           }
         }
+
       }
     }
 
