@@ -17,6 +17,19 @@ pipeline {
       }
     }
 
+    stage('Login to Docker') {
+      steps {
+        echo 'Logging into Docker...'
+        script {
+          withCredentials([usernamePassword(credentialsId: 'dockerhub_id', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')])
+          {
+            echo ${env.DOCKER_USER}
+            echo ${env.DOCKER_PASS}
+          }
+        }
+      }
+    }
+
     stage('Build / Compose') {
       steps {
         sh 'docker-compose build'
