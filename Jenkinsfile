@@ -1,12 +1,6 @@
 pipeline {
   agent any
   stages {
-    stage('Clone Git')
-    {
-      steps{
-        git 'https://github.com/jbakeacake/PathFinder_Web.git'
-      }
-    }
     stage('Fetch Dependencies') {
       steps {
         nodejs('Node') {
