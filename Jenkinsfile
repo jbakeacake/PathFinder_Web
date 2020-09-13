@@ -28,7 +28,7 @@ pipeline {
           }
         }
 
-        sh 'docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}'
+        sh 'winpty docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}'
       }
     }
 
