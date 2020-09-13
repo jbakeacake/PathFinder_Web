@@ -32,6 +32,7 @@ pipeline {
             sh "docker login -u jbaker895 -p $DOCKER_PASS"
           }
         }
+
       }
     }
 
@@ -50,6 +51,7 @@ pipeline {
     stage('Success') {
       steps {
         echo 'Build and Deployment Success!'
+        sh 'docker logout'
       }
     }
 
