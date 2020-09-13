@@ -45,6 +45,7 @@ pipeline {
     stage('Success') {
       steps {
         echo 'Build and Deployment Success!'
+        sh 'docker logout'
       }
     }
 
