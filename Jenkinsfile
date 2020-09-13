@@ -1,6 +1,12 @@
 pipeline {
   agent any
   stages {
+    stage('Clone Git')
+    {
+      steps{
+        git 'https://github.com/jbakeacake/PathFinder_Web.git'
+      }
+    }
     stage('Fetch Dependencies') {
       steps {
         nodejs('Node') {
@@ -23,8 +29,7 @@ pipeline {
         script {
           withCredentials([usernamePassword(credentialsId: 'dockerhub_id', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')])
           {
-            echo ${env.DOCKER_USER}
-            echo ${env.DOCKER_PASS}
+            sh "docker login -u jbaker895 -p $DOCKER_PASS"
           }
         }
       }
