@@ -20,7 +20,21 @@ namespace Persistence
                     new User
                     {
                         Id = Guid.NewGuid(),
-                        Username = "Dummy User",
+                        Username = "Dummy User 1",
+                        PasswordHash = hashPass,
+                        PasswordSalt = hashKey
+                    },
+                    new User
+                    {
+                        Id = Guid.NewGuid(),
+                        Username = "Dummy User 2",
+                        PasswordHash = hashPass,
+                        PasswordSalt = hashKey
+                    },
+                    new User
+                    {
+                        Id = Guid.NewGuid(),
+                        Username = "Dummy User 3",
                         PasswordHash = hashPass,
                         PasswordSalt = hashKey
                     }
