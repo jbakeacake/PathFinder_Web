@@ -41,7 +41,7 @@ namespace Persistence
                 };
             }
 
-            hmac.Dispose(); // Free up
+            hmac.Dispose(); // Free up HMAC object
         }
     }
 }
