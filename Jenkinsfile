@@ -23,12 +23,10 @@ pipeline {
         script {
           withCredentials([usernamePassword(credentialsId: 'dockerhub_id', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')])
           {
-            user = env.DOCKER_USER
-            pass = env.DOCKER_PASS
+            sh "docker login -u jbaker895 -p $DOCKER_PASS"
           }
         }
 
-        sh 'winpty docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}'
       }
     }
 
