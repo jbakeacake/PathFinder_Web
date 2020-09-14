@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Domain;
@@ -7,7 +8,7 @@ using Persistence;
 
 namespace Application.Users
 {
-    public class Create
+    public class Register
     {
         public class Command : IRequest
         {

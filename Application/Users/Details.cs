@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Domain;
@@ -22,6 +23,9 @@ namespace Application.Users
             }
             public async Task<User> Handle(Query request, CancellationToken cancellationToken)
             {
+                if(!_context.Users_Tbl.Any(x => x.Id == request.Id))
+                    throw new Exception("Unable to find user");
+
                 var user = await _context.Users_Tbl.FindAsync(request.Id);
                 return user;
             }
