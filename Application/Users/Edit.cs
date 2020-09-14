@@ -1,19 +1,18 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Domain;
 using MediatR;
 using Persistence;
 
 namespace Application.Users
 {
-    public class Create
+    public class Edit
     {
         public class Command : IRequest
         {
             public Guid Id { get; set; }
             public string Username { get; set; }
-            public string PlainTextPassword { get; set; }
+            public string PlaintextPassword { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -25,25 +24,27 @@ namespace Application.Users
             }
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                byte[] passwordHash, passwordSalt;
-                CreatePasswordHash(request.PlainTextPassword, out passwordHash, out passwordSalt);
+                var userToEdit = await _context.Users_Tbl.FindAsync(request.Id);
 
-                var user = new User
-                {
-                    Id = request.Id,
-                    Username = request.Username,
-                    PasswordHash = passwordHash,
-                    PasswordSalt = passwordSalt
-                };
+                if (userToEdit == null)
+                    throw new Exception("Could not find activity");
 
-                _context.Users_Tbl.Add(user);
-                var res =  await _context.SaveChangesAsync() > 0;
+                userToEdit.Username = request.Username ?? userToEdit.Username;
+                
+                byte[] passwordHash = null, passwordSalt = null;
 
-                if(res) return Unit.Value; // A MediatR object that returns a 200 OK response
+                if(!String.IsNullOrEmpty(request.PlaintextPassword.Trim()))
+                    CreatePasswordHash(request.PlaintextPassword, out passwordHash, out passwordSalt);
+                
+                userToEdit.PasswordHash = passwordHash ?? userToEdit.PasswordHash;
+                userToEdit.PasswordSalt = passwordSalt ?? userToEdit.PasswordSalt;
 
-                throw new Exception($"Problem saving changes on creation of user {request.Id}");
+                var res = await _context.SaveChangesAsync() > 0;
+                
+                if(res) return Unit.Value;
+
+                throw new Exception($"Problem saving changes for user: {request.Id}");
             }
-
             private void CreatePasswordHash(string plainTextPassword, out byte[] passwordHash, out byte[] passwordSalt)
             {
                 using (var hmac = new System.Security.Cryptography.HMACSHA512())

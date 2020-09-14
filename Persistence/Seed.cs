@@ -39,6 +39,9 @@ namespace Persistence
                         PasswordSalt = hashKey
                     }
                 };
+
+                context.Users_Tbl.AddRange(dummyUsers);
+                context.SaveChanges();
             }
 
             hmac.Dispose(); // Free up HMAC object
