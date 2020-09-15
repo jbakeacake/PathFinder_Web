@@ -42,10 +42,16 @@ pipeline {
       }
     }
 
+    stage('Logout of Docker') {
+      steps {
+        echo 'Logging out of Docker...'
+        sh 'docker logout'
+      }
+    }
+
     stage('Success') {
       steps {
         echo 'Build and Deployment Success!'
-        sh 'docker logout'
       }
     }
 
