@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Domain;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Users
@@ -24,7 +25,7 @@ namespace Application.Users
             }
             public async Task<User> Handle(Query request, CancellationToken cancellationToken)
             {
-                var user = await _context.Users_Tbl.FindAsync(request.Username);
+                var user = await _context.Users_Tbl.FirstOrDefaultAsync(x => x.Username.ToLower() == request.Username.ToLower());
                 if(user == null)
                     return null;
                 if(!VerifyPasswordHash(request.PlaintextPassword, user.PasswordHash, user.PasswordSalt))

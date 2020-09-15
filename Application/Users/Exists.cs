@@ -24,7 +24,7 @@ namespace Application.Users
             }
             public async Task<bool> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.Users_Tbl.AnyAsync(x => x.Id == request.Id);
+                return await _context.Users_Tbl.AnyAsync(x => x.Username == request.Username);
             }
         }
     }

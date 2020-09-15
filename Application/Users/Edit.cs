@@ -33,8 +33,8 @@ namespace Application.Users
                 
                 byte[] passwordHash = null, passwordSalt = null;
 
-                if(!String.IsNullOrEmpty(request.PlaintextPassword.Trim()))
-                    CreatePasswordHash(request.PlaintextPassword, out passwordHash, out passwordSalt);
+                if(!String.IsNullOrEmpty(request.PlaintextPassword))
+                    CreatePasswordHash(request.PlaintextPassword.Trim(), out passwordHash, out passwordSalt);
                 
                 userToEdit.PasswordHash = passwordHash ?? userToEdit.PasswordHash;
                 userToEdit.PasswordSalt = passwordSalt ?? userToEdit.PasswordSalt;

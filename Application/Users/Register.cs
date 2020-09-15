@@ -32,7 +32,7 @@ namespace Application.Users
                 var user = new User
                 {
                     Id = request.Id,
-                    Username = request.Username,
+                    Username = request.Username.ToLower(),
                     PasswordHash = passwordHash,
                     PasswordSalt = passwordSalt
                 };
