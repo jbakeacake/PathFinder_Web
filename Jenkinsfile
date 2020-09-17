@@ -11,13 +11,6 @@ pipeline {
       }
     }
 
-    stage('Unit Testing') {
-      steps {
-        echo 'Begin Unit Testing...'
-        sh 'dotnet'
-      }
-    }
-
     stage('Login to Docker') {
       steps {
         echo 'Logging into Docker...'
@@ -31,7 +24,7 @@ pipeline {
       }
     }
 
-    stage('Build / Compose') {
+    stage('Docker Unit Tests + Build') {
       steps {
         sh 'docker-compose build'
       }

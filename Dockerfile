@@ -3,7 +3,7 @@ WORKDIR /app
 
 #Copy all libraries/apps related to dotnet (should exlcude client-app)
 COPY . ./
-
+RUN dotnet test API.Tests/ -c Release
 RUN dotnet publish PathFinder_Web.sln -c Release -o PathFinder_Web/out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
