@@ -14,7 +14,7 @@ pipeline {
     stage('Unit Testing') {
       steps {
         echo 'Begin Unit Testing...'
-        bat 'dotnet test'
+        sh 'dotnet test'
       }
     }
 
