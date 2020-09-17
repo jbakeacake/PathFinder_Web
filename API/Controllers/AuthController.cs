@@ -31,8 +31,6 @@ namespace API.Controllers
             if(userExists)
                 return BadRequest("Username already exists.");
 
-            var user = await _mediator.Send(command);
-
             return await _mediator.Send(command);
         }
 

@@ -1,0 +1,5 @@
+{
+    "ConnectionStrings": {
+        "DefaultConnection": "Data Source=tcp:localhost, 1533;Initial Catalog=IntegrationDB;User Id=admin;Password=password;MultipleActiveResultSets=True"
+    }
+}
