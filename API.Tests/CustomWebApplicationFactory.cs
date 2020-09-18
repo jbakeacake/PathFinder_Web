@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Persistence;
@@ -35,6 +36,7 @@ namespace API.Tests
                     var scopedServices = scope.ServiceProvider;
                     var context = scopedServices.GetRequiredService<DataContext>();
                     var logger = scopedServices.GetRequiredService<ILogger<CustomWebApplicationFactory>>();
+                    context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
                     try
                     {
