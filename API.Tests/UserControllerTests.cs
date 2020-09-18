@@ -98,7 +98,7 @@ namespace API.Tests
         [Fact]
         public void CanLoginUserAsync()
         {
-            Assert.True(1==0); //for purpose of testing in Jenkins
+            
         }
     }
 }
