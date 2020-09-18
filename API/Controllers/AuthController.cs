@@ -4,7 +4,9 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Users;
+using AutoMapper;
 using Domain;
+using Domain.Dtos;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -17,9 +19,11 @@ namespace API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
         private readonly IConfiguration _config;
-        public AuthController(IMediator mediator, IConfiguration config)
+        public AuthController(IMediator mediator, IConfiguration config, IMapper mapper)
         {
+            _mapper = mapper;
             _mediator = mediator;
             _config = config;
         }
@@ -63,10 +67,12 @@ namespace API.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
+            var userForDetails = _mapper.Map<UserForDetailsDto>(user);
+
             return Ok(new
             {
                 token = tokenHandler.WriteToken(token),
-                user
+                userForDetails
             });
         }
     }

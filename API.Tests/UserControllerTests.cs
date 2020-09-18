@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using API.Tests.Utils;
 using Domain;
+using Domain.Dtos;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -82,10 +83,10 @@ namespace API.Tests
         [Fact]
         public async void CanRegisterUserAsync()
         {
-            using(var client = _factory.CreateClient())
+            using (var client = _factory.CreateClient())
             {
                 //Create a user:
-                var user = new { Username = "New_User", PlaintextPassword = "password"};
+                var user = new { Username = "New_User", PlaintextPassword = "password" };
                 var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
                 //Send the POST request:
                 var res = await client.PostAsync($"{BaseUrl}/auth/register", content);
@@ -95,10 +96,29 @@ namespace API.Tests
                 Assert.Contains(rawUsers, x => x.Username.ToLower().Equals("new_user"));
             }
         }
+
+        private struct UserCredential {
+            public UserForDetailsDto UserForDetails { get; set; }
+            public string Token { get; set; }
+        }
         [Fact]
-        public void CanLoginUserAsync()
+        public async void CanLoginUserAsync()
         {
-            
+            using (var client = _factory.CreateClient())
+            {
+                // Serialize our credentials:
+                var creds = new { Username = "Dummy User 1", PlaintextPassword = "Password" };
+                var content = new StringContent(JsonConvert.SerializeObject(creds), Encoding.UTF8, "application/json");
+                //Send the POST request:
+                var res = await client.PostAsync($"{BaseUrl}/auth/login", content);
+                res.EnsureSuccessStatusCode();
+
+                //Parse the credentials (structure is { user: [...], Token: "..." })
+                var userCred = JsonConvert.DeserializeObject<UserCredential>(await res.Content.ReadAsStringAsync());
+
+                Assert.True(userCred.UserForDetails.Username.ToLower().Equals("dummy user 1"));
+                Assert.False(String.IsNullOrEmpty(userCred.Token));
+            }
         }
     }
 }

@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Users;
+using AutoMapper;
 using Domain;
+using Domain.Dtos;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,20 +15,26 @@ namespace API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public UserController(IMediator mediator)
+        private readonly IMapper _mapper;
+        public UserController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<User>>> List()
+        public async Task<ActionResult<List<UserForDetailsDto>>> List()
         {
-            return await _mediator.Send(new List.Query());
+            var usersFromRepo = await _mediator.Send(new List.Query());
+            var usersForDetails = _mapper.Map<List<UserForDetailsDto>>(usersFromRepo);
+            return usersForDetails;
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> Details(Guid id)
+        public async Task<ActionResult<UserForDetailsDto>> Details(Guid id)
         {
-            return await _mediator.Send(new Details.Query{Id = id});
+            var userFromRepo = await _mediator.Send(new Details.Query{Id = id});
+            var userForDetailsDto = _mapper.Map<UserForDetailsDto>(userFromRepo);
+            return userForDetailsDto;
         }
 
         [HttpPut("{id}")]
